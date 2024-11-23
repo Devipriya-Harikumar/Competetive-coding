@@ -9,11 +9,9 @@ class Solution {
                     return false;
                 }
                 Character lastChar = bracketStack.peek();
-                if (s.charAt(i) == ')' &&lastChar == '(') {
-                    bracketStack.pop();
-                } else if (s.charAt(i) == '}' && lastChar == '{') {
-                    bracketStack.pop();
-                } else if (s.charAt(i) == ']' && lastChar == '[') {
+                if ((s.charAt(i) == ')' &&lastChar == '(' )|| 
+                (s.charAt(i) == '}' && lastChar == '{') || 
+                (s.charAt(i) == ']' && lastChar == '[')) {
                     bracketStack.pop();
                 } else {
                     return false;
