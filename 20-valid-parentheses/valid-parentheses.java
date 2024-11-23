@@ -8,11 +8,12 @@ class Solution {
                 if (bracketStack.empty()) {
                     return false;
                 }
-                if (s.charAt(i) == ')' && bracketStack.peek() == '(') {
+                Character lastChar = bracketStack.peek();
+                if (s.charAt(i) == ')' &&lastChar == '(') {
                     bracketStack.pop();
-                } else if (s.charAt(i) == '}' && bracketStack.peek() == '{') {
+                } else if (s.charAt(i) == '}' && lastChar == '{') {
                     bracketStack.pop();
-                } else if (s.charAt(i) == ']' && bracketStack.peek() == '[') {
+                } else if (s.charAt(i) == ']' && lastChar == '[') {
                     bracketStack.pop();
                 } else {
                     return false;
