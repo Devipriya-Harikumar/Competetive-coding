@@ -28,13 +28,11 @@ class Solution {
             list1 = list1.next;
             out = out.next;
         }
-
         while (list2 != null) {
             out.next = list2;
             list2 = list2.next;
             out = out.next;
         }
-
         return temp.next;
     }
 }
