@@ -1,11 +1,11 @@
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution {
@@ -15,7 +15,7 @@ class Solution {
         }
         return mergeKListsHelper(lists, 0, lists.length - 1);
     }
-    
+
     private ListNode mergeKListsHelper(ListNode[] lists, int start, int end) {
         if (start == end) {
             return lists[start];
@@ -28,24 +28,30 @@ class Solution {
         ListNode right = mergeKListsHelper(lists, mid + 1, end);
         return merge(left, right);
     }
-    
-    private ListNode merge(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-        
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                curr.next = l1;
-                l1 = l1.next;
+
+    private ListNode merge(ListNode list1, ListNode list2) {
+        ListNode temp = new ListNode();
+        ListNode out = temp;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                out.next = list1;
+                list1 = list1.next;
             } else {
-                curr.next = l2;
-                l2 = l2.next;
+                out.next = list2;
+                list2 = list2.next;
             }
-            curr = curr.next;
+            out = out.next;
         }
-        
-        curr.next = (l1 != null) ? l1 : l2;
-        
-        return dummy.next;
+        while (list1 != null) {
+            out.next = list1;
+            list1 = list1.next;
+            out = out.next;
+        }
+        while (list2 != null) {
+            out.next = list2;
+            list2 = list2.next;
+            out = out.next;
+        }
+        return temp.next;
     }
 }
