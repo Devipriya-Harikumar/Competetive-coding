@@ -16,22 +16,16 @@ class Solution {
         dummy.next = head;
         ListNode prev = dummy;
         ListNode temp = head;
-        while (temp.next != null) {
-            if (temp.val == temp.next.val) {
-                int dup = temp.next.val;
-                while (temp.val == dup && temp.next != null) {
+        while (temp != null) {
+            if (temp.next != null && temp.val == temp.next.val) {
+                while (temp.next != null && temp.val == temp.next.val) {
                     temp = temp.next;
                 }
-                if(temp.next == null && temp.val ==dup){
-                    prev.next = null;
-                    break;
-                }else {
-                    prev.next = temp;
-                }
+                 prev.next = temp.next;
             } else {
-                temp = temp.next;
                 prev = prev.next;
             }
+            temp = temp.next;
         }
         return dummy.next;
     }
