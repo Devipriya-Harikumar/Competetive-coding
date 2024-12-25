@@ -1,39 +1,44 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int len1 = nums1.length;
-        int len2 = nums2.length;
+        if(nums1.length > nums2.length) {
+            return findMedianSortedArrays(nums2, nums1);
+        }
+        int m = nums1.length, n = nums2.length;
+        int left = 0, right = m;
 
-        int[] mergedArray = new int[len1 + len2];
+        while(left <= right){
+            int partitionA = (left + right)/2;
+            int partitionB = (m+n+1)/2 - partitionA ;
 
-        int i = 0, j = 0, index = 0;
+              int maxLeftA = (partitionA == 0)
+                ? Integer.MIN_VALUE
+                : nums1[partitionA - 1];
+            int minRightA = (partitionA == m)
+                ? Integer.MAX_VALUE
+                : nums1[partitionA];
+            int maxLeftB = (partitionB == 0)
+                ? Integer.MIN_VALUE
+                : nums2[partitionB - 1];
+            int minRightB = (partitionB == n)
+                ? Integer.MAX_VALUE
+                : nums2[partitionB];
 
-        while (i < len1 && j < len2) {
-            if (nums1[i] < nums2[j]) {
-                mergedArray[index] = nums1[i];
-                i++;
-                index++;
+            if (maxLeftA <= minRightB && maxLeftB <= minRightA) {
+                if ((m + n) % 2 == 0) {
+                    return (
+                        (Math.max(maxLeftA, maxLeftB) +
+                            Math.min(minRightA, minRightB)) /
+                        2.0
+                    );
+                } else {
+                    return Math.max(maxLeftA, maxLeftB);
+                }
+            } else if (maxLeftA > minRightB) {
+                right = partitionA - 1;
             } else {
-                mergedArray[index] = nums2[j];
-                j++;
-                index++;
+                left = partitionA + 1;
             }
         }
-        while (i < len1) {
-            mergedArray[index] = nums1[i];
-            i++;
-            index++;
+        return 0.0;
         }
-        while (j < len2) {
-            mergedArray[index] = nums2[j];
-            j++;
-            index++;
-        }
-        System.out.print(Arrays.toString(mergedArray));
-        index = len1 + len2;
-        if((index)%2 == 0){
-            return ((double)mergedArray[index/2] + (double)mergedArray[index/2 - 1])/2;
-        } else {
-            return mergedArray[index/2];
-        }
-    }
 }
