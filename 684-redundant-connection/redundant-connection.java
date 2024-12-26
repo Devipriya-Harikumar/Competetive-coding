@@ -10,13 +10,9 @@ class Solution {
             par[i] = i;
             // rank[i] = 1;
         }
-        for (int i = 0; i < len; i++) {
-            System.out.print(edges[i][0] + " ");
-            System.out.print(edges[i][1] + " ");
-            boolean check = union(edges[i][0], edges[i][1]);
-            System.out.print( check + "\n");
-            if(!check)
-                return edges[i];
+        for (int[] edge : edges) {
+            if(!union(edge[0], edge[1]))
+                return edge;
         }
         return null;
     }
