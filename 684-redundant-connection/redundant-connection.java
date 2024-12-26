@@ -8,7 +8,7 @@ class Solution {
         rank = new int[len + 1];
         for (int i = 0; i < len + 1; i++) {
             par[i] = i;
-            rank[i] = 1;
+            // rank[i] = 1;
         }
         for (int i = 0; i < len; i++) {
             System.out.print(edges[i][0] + " ");
