@@ -8,7 +8,6 @@ class Solution {
             list.add(pre[1]);
             hm.put(pre[0], list);
         }
-        System.out.print(hm.toString());
         for(int i =0; i<numCourses; i++){
             if(!dfs(i)) return false;
         }
