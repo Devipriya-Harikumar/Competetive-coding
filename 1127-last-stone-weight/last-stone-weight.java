@@ -8,7 +8,7 @@ class Solution {
         while(heap.size()>1){
             int top1 = heap.poll();
             int top2 = heap.poll();
-            int diff = Math.abs(top1-top2);
+            int diff = top1-top2;
 
             if(diff!=0){
                 heap.add(diff);
