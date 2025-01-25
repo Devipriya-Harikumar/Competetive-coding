@@ -32,7 +32,7 @@ class Solution {
                             int nx = x + dir[0];
                             int ny = y + dir[1];
                             if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == '1') {
-                                queue.offer(new int[] { nx, ny });
+                                queue.add(new int[] { nx, ny });
                             }
                         }
                     }
