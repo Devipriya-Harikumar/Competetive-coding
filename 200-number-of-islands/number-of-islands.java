@@ -15,7 +15,7 @@ class Solution {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '1') {
                     numIslands++;
-                    queue.offer(new int[] { i, j });
+                    queue.add(new int[] { i, j });
 
                     while (!queue.isEmpty()) {
                         int[] curr = queue.poll();
