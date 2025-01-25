@@ -1,45 +1,31 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0) {
-            return 0;
-        }
+        int islands = 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        Set<String> visited = new HashSet<>();
 
-        int numIslands = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-        Queue<int[]> queue = new ArrayDeque<>();
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == '1') {
-                    numIslands++;
-                    queue.add(new int[] { i, j });
-
-                    while (!queue.isEmpty()) {
-                        int[] curr = queue.poll();
-                        int x = curr[0];
-                        int y = curr[1];
-
-                        if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] != '1') {
-                            continue;
-                        }
-
-                        grid[x][y] = '0'; // mark as visited
-
-                        for (int[] dir : directions) {
-                            int nx = x + dir[0];
-                            int ny = y + dir[1];
-                            if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == '1') {
-                                queue.add(new int[] { nx, ny });
-                            }
-                        }
-                    }
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (grid[r][c] == '1' && !visited.contains(r + "," + c)) {
+                    islands++;
+                    dfs(grid, r, c, visited, directions, rows, cols);
                 }
             }
         }
 
-        return numIslands;
+        return islands;        
+    }
+
+     private void dfs(char[][] grid, int r, int c, Set<String> visited, int[][] directions, int rows, int cols) {
+            visited.add(r + "," + c);
+            for (int[] direction : directions) {
+                int nr = r + direction[0], nc = c + direction[1];
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] == '1' && !visited.contains(nr + "," + nc)) {
+                  dfs(grid, nr, nc, visited, directions, rows, cols);
+                }
+            }
     }
 }
