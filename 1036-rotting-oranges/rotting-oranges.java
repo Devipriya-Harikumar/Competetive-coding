@@ -16,10 +16,7 @@ class Solution {
             }
         }
         int[][] spread = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
-        System.out.print("Fresh :" + fresh);
-        for (int[] i : queue) {
-            System.out.print(Arrays.toString(i) + " ");
-        }
+    
         while (!queue.isEmpty() && fresh > 0) {
             int size = queue.size();
             for (int i = 0; i <size ; i++) {
@@ -31,7 +28,6 @@ class Solution {
                     if (adjRow >= 0 && adjRow < row && adjCol >= 0 && adjCol < col &&
                             grid[adjRow][adjCol] == 1) {
                         grid[adjRow][adjCol] = 2;
-                        System.out.print("("+adjRow+ ","+ adjCol+ ")");
                         queue.add(new int[] { adjRow, adjCol });
                         fresh--;
                     }
