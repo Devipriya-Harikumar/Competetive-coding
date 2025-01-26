@@ -4,7 +4,7 @@ class Solution {
         int col = grid[0].length;
         int time = 0;
         int fresh = 0;
-        Queue<int[]> queue = new LinkedList<>();
+        Queue<int[]> queue = new ArrayDeque<>();
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 if (grid[i][j] == 2) {
