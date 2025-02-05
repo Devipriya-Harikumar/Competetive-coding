@@ -1,29 +1,34 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer,Integer> counterMap = new HashMap<>();
-
-        for(int i = 0; i<nums.length; i++) {
-            counterMap.put(nums[i], counterMap.getOrDefault(nums[i],0)+1);
+        // O(1) time
+        if (k == nums.length) {
+            return nums;
+        }
+        
+        // 1. Build hash map: character and how often it appears
+        // O(N) time
+        Map<Integer, Integer> count = new HashMap();
+        for (int n: nums) {
+          count.put(n, count.getOrDefault(n, 0) + 1);
         }
 
-        List<Integer>[] freq = new ArrayList[nums.length+1];
-        for(int i = 0; i<freq.length; i++) {
-            freq[i] = new ArrayList<>();
+        // init heap 'the less frequent element first'
+        Queue<Integer> heap = new PriorityQueue<>(
+            (n1, n2) -> count.get(n1) - count.get(n2));
+
+        // 2. Keep k top frequent elements in the heap
+        // O(N log k) < O(N log N) time
+        for (int n: count.keySet()) {
+          heap.add(n);
+          if (heap.size() > k) heap.poll();    
         }
 
-        for(Map.Entry<Integer,Integer> entry : counterMap.entrySet()){
-            int frequency = entry.getValue();
-            freq[frequency].add(entry.getKey());
+        // 3. Build an output array
+        // O(k log k) time
+        int[] top = new int[k];
+        for(int i = k - 1; i >= 0; --i) {
+            top[i] = heap.poll();
         }
-
-        int[] result = new int[k];
-        int index = 0;
-        for(int i = freq.length-1;i>=0;i--) {
-            for(int n : freq[i]){
-                result[index++] = n;
-                if(index==k) return result;
-            }
-        }
-        return new int[0];
+        return top;
     }
 }
