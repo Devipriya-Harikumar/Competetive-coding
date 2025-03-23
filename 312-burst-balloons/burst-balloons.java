@@ -6,15 +6,18 @@ class Solution {
     num[0] = num[n++] = 1;
 
 
-    int[][] dp = new int[n][n];
-    for (int k = 2; k < n; ++k)
-        for (int left = 0; left < n - k; ++left) {
-            int right = left + k;
-            for (int i = left + 1; i < right; ++i)
-                dp[left][right] = Math.max(dp[left][right], 
-                num[left] * num[i] * num[right] + dp[left][i] + dp[i][right]);
-        }
-
-    return dp[0][n - 1];
+    int[][] memo = new int[n][n];
+    return burst(memo, num, 0, n - 1);
     }
+
+    public int burst(int[][] memo, int[] nums, int left, int right) {
+    if (left + 1 == right) return 0;
+    if (memo[left][right] > 0) return memo[left][right];
+    int ans = 0;
+    for (int i = left + 1; i < right; ++i)
+        ans = Math.max(ans, nums[left] * nums[i] * nums[right] 
+        + burst(memo, nums, left, i) + burst(memo, nums, i, right));
+    memo[left][right] = ans;
+    return ans;
+}
 }
