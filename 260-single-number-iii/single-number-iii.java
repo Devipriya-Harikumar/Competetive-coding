@@ -1,19 +1,21 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        Arrays.sort(nums);
-        int index = 0;
+         int xor2no = 0;
+        for (int num : nums) {
+            xor2no ^= num;
+        }
+
+        int lowestBit = xor2no & (-xor2no);
+
         int[] result = new int[2];
-        for(int i = 0; i< nums.length -1; i++){
-            if(nums[i] != nums[i+1]){
-                result[index] = nums[i];
-                index++;
+        for (int num : nums) {
+            if ((lowestBit & num) == 0) {
+                result[0] ^= num;
             } else {
-                i++;
+                result[1] ^= num;
             }
         }
-        if(index == 1){
-                result[index] = nums[nums.length -1];
-            }
+
         return result;
     }
 }
