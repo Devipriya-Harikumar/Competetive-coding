@@ -1,8 +1,6 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        System.out.print(nums);
         Arrays.sort(nums);
-        System.out.print(nums);
         int index = 0;
         int[] result = new int[2];
         for(int i = 0; i< nums.length -1; i++){
